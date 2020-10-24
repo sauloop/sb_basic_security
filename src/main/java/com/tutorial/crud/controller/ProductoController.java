@@ -21,7 +21,7 @@ public class ProductoController {
     @GetMapping("/lista")
     public ModelAndView list(){
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/producto/lista");
+        mv.setViewName("producto/lista");
         List<Producto> productos = productoService.list();
         mv.addObject("productos", productos);
         return mv;
