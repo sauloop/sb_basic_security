@@ -62,17 +62,17 @@ public class UsuarioController {
 	public ModelAndView registrar(String nombreUsuario, String password) {
 		ModelAndView mv = new ModelAndView();
 		if (StringUtils.isBlank(nombreUsuario)) {
-			mv.setViewName("/registro");
+			mv.setViewName("registro");
 			mv.addObject("error", "el nombre no puede estar vacío");
 			return mv;
 		}
 		if (StringUtils.isBlank(password)) {
-			mv.setViewName("/registro");
+			mv.setViewName("registro");
 			mv.addObject("error", "la contraseña no puede estar vacía");
 			return mv;
 		}
 		if (usuarioService.existsByNombreusuario(nombreUsuario)) {
-			mv.setViewName("/registro");
+			mv.setViewName("registro");
 			mv.addObject("error", "ese nombre de usuario ya existe");
 			return mv;
 		}
@@ -87,7 +87,7 @@ public class UsuarioController {
 //		roles.add(rolEditor);
 		usuario.setRoles(roles);
 		usuarioService.save(usuario);
-		mv.setViewName("/login");
+		mv.setViewName("login");
 		mv.addObject("registroOK", "Cuenta creada, " + usuario.getNombreUsuario() + ", ya puedes iniciar sesión");
 		return mv;
 	}
@@ -95,7 +95,7 @@ public class UsuarioController {
 	@GetMapping("/lista")
 	public ModelAndView list() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/usuario/lista");
+		mv.setViewName("usuario/lista");
 		List<Usuario> usuarios = usuarioService.list();
 		mv.addObject("usuarios", usuarios);
 		return mv;
@@ -107,7 +107,7 @@ public class UsuarioController {
 		if (!usuarioService.existsById(id))
 			return new ModelAndView("redirect:/usuario/lista");
 		Usuario usuario = usuarioService.getById(id).get();
-		ModelAndView mv = new ModelAndView("/usuario/editar");
+		ModelAndView mv = new ModelAndView("usuario/editar");
 		mv.addObject("usuario", usuario);
 		mv.addObject("noEditor", true);
 		return mv;
