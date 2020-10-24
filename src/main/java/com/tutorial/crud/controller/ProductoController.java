@@ -18,7 +18,7 @@ public class ProductoController {
     @Autowired
     ProductoService productoService;
 
-    @GetMapping("lista")
+    @GetMapping("/lista")
     public ModelAndView list(){
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/producto/lista");
@@ -28,7 +28,7 @@ public class ProductoController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("nuevo")
+    @GetMapping("/nuevo")
     public String nuevo(){
         return "producto/nuevo";
     }
