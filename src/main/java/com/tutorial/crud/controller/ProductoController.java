@@ -27,13 +27,13 @@ public class ProductoController {
 		return mv;
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
 	@GetMapping("/nuevo")
 	public String nuevo() {
 		return "producto/nuevo";
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
 	@PostMapping("/guardar")
 	public ModelAndView crear(@RequestParam String nombre, @RequestParam float precio) {
 		ModelAndView mv = new ModelAndView();
@@ -68,7 +68,7 @@ public class ProductoController {
 		return mv;
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") int id) {
 		if (!productoService.existsById(id))
@@ -79,7 +79,7 @@ public class ProductoController {
 		return mv;
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
 	@PostMapping("actualizar")
 	public ModelAndView actualizar(@RequestParam int id, @RequestParam String nombre, @RequestParam float precio) {
 		if (!productoService.existsById(id))
@@ -111,7 +111,7 @@ public class ProductoController {
 		return new ModelAndView("redirect:/producto/lista");
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
 	@GetMapping("/borrar/{id}")
 	public ModelAndView borrar(@PathVariable("id") int id) {
 		if (productoService.existsById(id)) {

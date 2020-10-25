@@ -7,11 +7,35 @@
 	<header th:insert="fragments :: nav"></header>
 
 	<div class="container">
-		<h1>Administración</h1>
-	</div>
+		<div class="row">
+			<div class="col-sm-4 mt-4 mx-auto text-center">
 
-	<div>
-		<a th:href="@{/usuario/lista}">Usuarios</a>
+				<div>
+					<div class="mb-4">
+						<h1>Administrar</h1>
+					</div>
+				</div>
+				<br />
+				<div sec:authorize="hasRole('ROLE_ADMIN')">
+					<div class="mt-4 mb-4">
+						<a th:href="@{/usuario/lista}">Usuarios</a>
+					</div>
+				</div>
+
+				<div sec:authorize="hasRole('ROLE_ADMIN')">
+					<div class="mt-4 mb-4">
+						<a th:href="@{/usuario/editores}">Editores</a>
+					</div>
+				</div>
+
+				<div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">
+					<div class="mt-4 mb-4">
+						<a th:href="@{/producto/lista}">Productos</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
 	</div>
 
 	<footer th:insert="fragments :: footer"></footer>

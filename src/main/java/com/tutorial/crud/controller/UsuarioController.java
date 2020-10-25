@@ -92,12 +92,47 @@ public class UsuarioController {
 		return mv;
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/lista")
 	public ModelAndView list() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("usuario/lista");
 		List<Usuario> usuarios = usuarioService.list();
-		mv.addObject("usuarios", usuarios);
+		List<Usuario> usrFiltrados = new ArrayList<>();
+		for (Usuario usuario : usuarios) {
+			boolean isEditor = false;
+			for (Rol rol : usuario.getRoles()) {
+				if (rol.getRolNombre().equals(RolNombre.ROLE_EDITOR)) {
+					isEditor = true;
+				}
+			}
+			if (!isEditor) {
+				usrFiltrados.add(usuario);
+			}
+		}
+		mv.addObject("usuarios", usrFiltrados);
+		return mv;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/editores")
+	public ModelAndView editores() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("usuario/lista");
+		List<Usuario> usuarios = usuarioService.list();
+		List<Usuario> usrFiltrados = new ArrayList<>();
+		for (Usuario usuario : usuarios) {
+			boolean isEditor = false;
+			for (Rol rol : usuario.getRoles()) {
+				if (rol.getRolNombre().equals(RolNombre.ROLE_EDITOR)) {
+					isEditor = true;
+				}
+			}
+			if (isEditor) {
+				usrFiltrados.add(usuario);
+			}
+		}
+		mv.addObject("usuarios", usrFiltrados);
 		return mv;
 	}
 
