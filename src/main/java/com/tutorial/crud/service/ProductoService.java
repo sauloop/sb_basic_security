@@ -3,6 +3,8 @@ package com.tutorial.crud.service;
 import com.tutorial.crud.entity.Producto;
 import com.tutorial.crud.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,36 +13,37 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ProductoService {
 
-    @Autowired
-    ProductoRepository productoRepository;
+	@Autowired
+	ProductoRepository productoRepository;
 
-    public List<Producto> list(){
-        return productoRepository.findAll();
-    }
+	public List<Producto> list() {
+		return productoRepository.findAll();
+	}
 
-    public Optional<Producto> getOne(int id){
-        return productoRepository.findById(id);
-    }
+	public Optional<Producto> getOne(int id) {
+		return productoRepository.findById(id);
+	}
 
-    public Optional<Producto> getByNombre(String nombre){
-        return productoRepository.findByNombre(nombre);
-    }
+	public Optional<Producto> getByNombre(String nombre) {
+		return productoRepository.findByNombre(nombre);
+	}
 
-    public void  save(Producto producto){
-        productoRepository.save(producto);
-    }
+	public void save(Producto producto) {
+		productoRepository.save(producto);
+	}
 
-    public void delete(int id){
-        productoRepository.deleteById(id);
-    }
+	public void delete(int id) {
+		productoRepository.deleteById(id);
+	}
 
-    public boolean existsById(int id){
-        return productoRepository.existsById(id);
-    }
+	public boolean existsById(int id) {
+		return productoRepository.existsById(id);
+	}
 
-    public boolean existsByNombre(String nombre){
-        return productoRepository.existsByNombre(nombre);
-    }
+	public boolean existsByNombre(String nombre) {
+		return productoRepository.existsByNombre(nombre);
+	}
 }

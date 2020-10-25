@@ -3,6 +3,8 @@ package com.tutorial.crud.service;
 import com.tutorial.crud.entity.Usuario;
 import com.tutorial.crud.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +13,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class UsuarioService {
 
 	@Autowired
