@@ -106,7 +106,7 @@ public class UsuarioController {
 					isEditor = true;
 				}
 			}
-			if (!isEditor) {
+			if (!isEditor && usuario.getId() != 1) {
 				usrFiltrados.add(usuario);
 			}
 		}
