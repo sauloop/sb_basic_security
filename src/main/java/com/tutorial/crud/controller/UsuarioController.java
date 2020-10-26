@@ -94,7 +94,7 @@ public class UsuarioController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/lista")
-	public ModelAndView list() {
+	public ModelAndView lista() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("usuario/lista");
 		List<Usuario> usuarios = usuarioService.list();
@@ -115,10 +115,10 @@ public class UsuarioController {
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/editores")
+	@GetMapping("/listaeditores")
 	public ModelAndView editores() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("usuario/lista");
+		mv.setViewName("usuario/listaeditores");
 		List<Usuario> usuarios = usuarioService.list();
 		List<Usuario> usrFiltrados = new ArrayList<>();
 		for (Usuario usuario : usuarios) {
@@ -144,7 +144,18 @@ public class UsuarioController {
 		Usuario usuario = usuarioService.getById(id).get();
 		ModelAndView mv = new ModelAndView("usuario/editar");
 		mv.addObject("usuario", usuario);
-		mv.addObject("noEditor", true);
+//		mv.addObject("noEditor", true);
+		return mv;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/modificareditor/{id}")
+	public ModelAndView modificareditor(@PathVariable("id") int id) {
+		if (!usuarioService.existsById(id))
+			return new ModelAndView("redirect:/usuario/lista");
+		Usuario usuario = usuarioService.getById(id).get();
+		ModelAndView mv = new ModelAndView("usuario/modificareditor");
+		mv.addObject("usuario", usuario);
 		return mv;
 	}
 
@@ -169,5 +180,46 @@ public class UsuarioController {
 //		usuario.setNombreUsuario(nombre);
 		usuarioService.save(usuario);
 		return new ModelAndView("redirect:/usuario/lista");
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/actualizareditor")
+	public ModelAndView actualizareditor(@RequestParam int id, @RequestParam String rol) {
+		if (!usuarioService.existsById(id))
+			return new ModelAndView("redirect:/producto/lista");
+		Usuario usuario = usuarioService.getById(id).get();
+
+		if (rol.equals("ROLE_USUARIO")) {
+			Rol rolUser = rolService.getByRolNombre(RolNombre.ROLE_USER).get();
+
+			List<Rol> roles = new ArrayList<>();
+			roles.add(rolUser);
+			usuario.setRoles(roles);
+			usuarioService.save(usuario);
+
+		}
+//		usuario.setNombreUsuario(nombre);
+		usuarioService.save(usuario);
+		return new ModelAndView("redirect:/usuario/listaeditores");
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/borrar/{id}")
+	public ModelAndView borrar(@PathVariable("id") int id) {
+		if (usuarioService.existsById(id)) {
+			usuarioService.delete(id);
+			return new ModelAndView("redirect:/usuario/lista");
+		}
+		return null;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/borrareditor/{id}")
+	public ModelAndView borrareditor(@PathVariable("id") int id) {
+		if (usuarioService.existsById(id)) {
+			usuarioService.delete(id);
+			return new ModelAndView("redirect:/usuario/listaeditores");
+		}
+		return null;
 	}
 }

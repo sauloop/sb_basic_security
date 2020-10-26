@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-4 mx-auto">
             <h5 class="mb-4">Editar usuario</h5>
-            <form th:action="@{/usuario/actualizar}" method="post">
+            <form th:action="@{/usuario/actualizareditor}" method="post">
                 <input type="hidden" name="id" id="id" th:value="${usuario.id}">
 
                 <!-- control ataque csrf -->
@@ -22,8 +22,8 @@
                 </div>
                 
                 <div>
-                    <input type="checkbox" id="rol" name="rol" value="ROLE_EDITOR">
-					<label for="rol"> Hacer editor</label><br>
+                    <input type="checkbox" id="rol" name="rol" value="ROLE_USUARIO">
+					<label for="rol"> Hacer usuario</label><br>
                 </div>
                
                 <div class="form-group">
