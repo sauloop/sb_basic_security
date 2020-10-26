@@ -22,7 +22,7 @@
 					<!-- 					<td th:each="rol: ${usuario.roles}"><span -->
 					<!-- 						th:text="${rol.rolNombre}"></span></td> -->
 					<td sec:authorize="hasRole('ROLE_ADMIN')"><a
-						th:href="@{'/usuario/detalle/' + ${usuario.id}}"><button
+						th:href="@{'/usuario/detalleeditor/' + ${usuario.id}}"><button
 								class="btn btn-outline-primary">
 								<i class="far fa-eye"></i>
 							</button></a></td>
@@ -39,6 +39,12 @@
 				</tr>
 			</tbody>
 		</table>
+		<div>
+			<a th:href="@{/admin}" style="text-decoration: none;"><button
+					class="btn btn-outline-info btn-block">
+					<i class="fas fa-arrow-circle-left"></i> Volver
+				</button></a>
+		</div>
 	</div>
 	<footer th:insert="fragments :: footer"></footer>
 	<div th:insert="fragments :: scripts"></div>

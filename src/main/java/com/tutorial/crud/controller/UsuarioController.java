@@ -36,22 +36,22 @@ public class UsuarioController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	@GetMapping("/testeditar")
-	public String testeditar(Model model) {
-
-		Usuario usuario = usuarioService.getById(3).get();
-		model.addAttribute("usuario", usuario);
-		model.addAttribute("noEditor", true);
-		return "testeditar";
-	}
-
-	@PostMapping("/testactualizar")
-	public String testactualizar(@RequestParam String rol, Model model) {
-
-		model.addAttribute("rol", rol);
-
-		return "testactualizar";
-	}
+//	@GetMapping("/testeditar")
+//	public String testeditar(Model model) {
+//
+//		Usuario usuario = usuarioService.getById(3).get();
+//		model.addAttribute("usuario", usuario);
+//		model.addAttribute("noEditor", true);
+//		return "testeditar";
+//	}
+//
+//	@PostMapping("/testactualizar")
+//	public String testactualizar(@RequestParam String rol, Model model) {
+//
+//		model.addAttribute("rol", rol);
+//
+//		return "testactualizar";
+//	}
 
 	@GetMapping("/registro")
 	public String registro() {
@@ -133,6 +133,28 @@ public class UsuarioController {
 			}
 		}
 		mv.addObject("usuarios", usrFiltrados);
+		return mv;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/detalle/{id}")
+	public ModelAndView detalle(@PathVariable("id") int id) {
+		if (!usuarioService.existsById(id))
+			return new ModelAndView("redirect:/usuario/lista");
+		Usuario usuario = usuarioService.getById(id).get();
+		ModelAndView mv = new ModelAndView("usuario/detalle");
+		mv.addObject("usuario", usuario);
+		return mv;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/detalleeditor/{id}")
+	public ModelAndView detalleeditor(@PathVariable("id") int id) {
+		if (!usuarioService.existsById(id))
+			return new ModelAndView("redirect:/usuario/listaeditores");
+		Usuario usuario = usuarioService.getById(id).get();
+		ModelAndView mv = new ModelAndView("usuario/detalleeditor");
+		mv.addObject("usuario", usuario);
 		return mv;
 	}
 

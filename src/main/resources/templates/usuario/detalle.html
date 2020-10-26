@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: headerfiles">
+</head>
+<body>
+<header th:insert="fragments :: nav"></header>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            Detalles del usuario
+        </div>
+        <div class="card-body">
+            <h5 sec:authorize="hasRole('ROLE_ADMIN')" class="card-title" th:text="'Nombre: ' + ${usuario.nombreUsuario}"></h5>    
+            <a th:href="@{/usuario/lista}" class="btn btn-outline-info">
+                <i class="fas fa-arrow-circle-left"></i> Volver
+            </a>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="fragments :: footer"></footer>
+<div th:insert="fragments :: scripts"></div>
+</body>
+</html>
