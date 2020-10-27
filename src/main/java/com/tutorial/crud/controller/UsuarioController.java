@@ -185,10 +185,10 @@ public class UsuarioController {
 	@PostMapping("/actualizar")
 	public ModelAndView actualizar(@RequestParam int id, @RequestParam String rol) {
 		if (!usuarioService.existsById(id))
-			return new ModelAndView("redirect:/producto/lista");
+			return new ModelAndView("redirect:/usuario/lista");
 		Usuario usuario = usuarioService.getById(id).get();
 
-		if (rol.equals("ROLE_EDITOR")) {
+		if (rol != null & rol.equals("ROLE_EDITOR")) {
 			Rol rolUser = rolService.getByRolNombre(RolNombre.ROLE_USER).get();
 			Rol rolEditor = rolService.getByRolNombre(RolNombre.ROLE_EDITOR).get();
 
@@ -198,6 +198,8 @@ public class UsuarioController {
 			usuario.setRoles(roles);
 			usuarioService.save(usuario);
 
+		} else {
+			return new ModelAndView("redirect:/usuario/lista");
 		}
 //		usuario.setNombreUsuario(nombre);
 		usuarioService.save(usuario);
@@ -208,10 +210,10 @@ public class UsuarioController {
 	@PostMapping("/actualizareditor")
 	public ModelAndView actualizareditor(@RequestParam int id, @RequestParam String rol) {
 		if (!usuarioService.existsById(id))
-			return new ModelAndView("redirect:/producto/lista");
+			return new ModelAndView("redirect:/usuario/listaeditores");
 		Usuario usuario = usuarioService.getById(id).get();
 
-		if (rol.equals("ROLE_USUARIO")) {
+		if (rol != null & rol.equals("ROLE_USUARIO")) {
 			Rol rolUser = rolService.getByRolNombre(RolNombre.ROLE_USER).get();
 
 			List<Rol> roles = new ArrayList<>();
@@ -219,6 +221,8 @@ public class UsuarioController {
 			usuario.setRoles(roles);
 			usuarioService.save(usuario);
 
+		} else {
+			return new ModelAndView("redirect:/usuario/lista");
 		}
 //		usuario.setNombreUsuario(nombre);
 		usuarioService.save(usuario);
