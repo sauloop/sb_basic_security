@@ -26,8 +26,8 @@
 								<label for="category"><strong>Categoría</strong></label><br />
 								<select class="browser-default custom-select col-md-4"
 									name="category" id="category">
-									<option th:each="category:${categories}"
-										th:value="${category.id}" th:text="${category.name}"></option>
+									<option th:each="cat:${categories}" th:value="${cat.id}"
+										th:text="${cat.name}"></option>
 								</select>
 							</div>
 							<label for="title"><strong>Título</strong></label> <input
@@ -53,7 +53,7 @@
 				</div>
 
 				<div>
-					<a th:href="@{/producto/lista}" style="text-decoration: none;"><button
+					<a th:href="@{/enlace/lista}" style="text-decoration: none;"><button
 							class="btn btn-outline-info btn-block">
 							<i class="fas fa-arrow-circle-left"></i> Volver
 						</button></a>
