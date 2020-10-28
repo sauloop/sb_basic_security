@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tutorial.crud.entity.Article;
 import com.tutorial.crud.entity.Category;
+import com.tutorial.crud.entity.Producto;
 import com.tutorial.crud.service.ArticleService;
 import com.tutorial.crud.service.CategoryService;
 
@@ -77,104 +78,61 @@ public class EnlaceController {
 		return mv;
 	}
 
-//	@GetMapping("/formsearch")
-//	public String formSearch(Model model) {
-//		model.addAttribute("category", new Category());
-//		model.addAttribute("categories", categoryService.listCategories());
-//
-//		return "formSearch";
-//	}
-//
-//	@GetMapping("/search")
-//	public String searchByCategory(@RequestParam String name, Model model,
-//			@ModelAttribute("category") Category category) {
-//
-//		if (name == "") {
-//
-//			return "redirect:/formsearch";
-//
-//		} else {
-//			Category cat = categoryService.findCategoryByName(name);
-//			List<Article> articles = cat.getArticles();
-//			Collections.sort(articles);
-//
-//			model.addAttribute("categories", categoryService.listCategories());
-//			model.addAttribute("articles", articles);
-//
-//			return "formSearch";
-//		}
-//	}
-//
-//	@GetMapping("/trueknic")
-//	public String trueknic() {
-//		return "trueknic";
-//	}
-//
-//	@GetMapping("/admin")
-//	public String admin() {
-//		return "admin";
-//	}
-//
-//	@GetMapping("/admin/articles/adminarticles")
-//	public String adminArticles(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-//
-//		Pageable articlePageable = PageRequest.of(page, 10);
-//
-//		Page<Article> articles = articleService.listArticles(articlePageable);
-//
-//		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>("", articles);
-//
-//		model.addAttribute("renpag", renderizadorPaginas);
-//		model.addAttribute("articles", articles);
-//
-//		return "adminArticles";
-//	}
-//
-//	@GetMapping("/login")
-//	public String login() {
-//		return "login";
-//	}
-//
-//	@GetMapping("/admin/articles/formarticle")
-//	public String formArticle(Model model, @RequestParam(name = "id", required = true) long id) {
-//
-//		Article article = new Article();
-//
-//		Optional<Article> artOp = articleService.findArticleById(id);
-//
-//		if (artOp.isPresent()) {
-//
-//			article = artOp.get();
-//		}
-//
-//		else {
-//
-//			Date date = new Date();
-//
-//			article.setDay(date);
-//		}
-//
-//		model.addAttribute("article", article);
-//		model.addAttribute("categories", categoryService.listCategories());
-//		return "formArticle";
-//	}
-//
-//	@PostMapping("/admin/articles/addarticle")
-//	public String addArticle(@Valid Article article, BindingResult result, Model model) {
-//		if (result.hasErrors()) {
-//			model.addAttribute("article", article);
-//			return "formArticle";
-//		}
-//
-//		articleService.addArticle(article);
-//
-//		return "redirect:/admin/articles/adminarticles";
-//	}
-//
-//	@GetMapping("/admin/articles/delete/{id}")
-//	public String deleteArticle(@PathVariable("id") long id) {
-//		articleService.deleteArticle(id);
-//
-//		return "redirect:/admin/articles/adminarticles";
-//	}
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
+	@GetMapping("/editar/{id}")
+	public ModelAndView editar(@PathVariable("id") int id) {
+		if (!articleService.existsById(id)) {
+			return new ModelAndView("redirect:/enlace/lista");
+		}
+
+		List<Category> categories = categoryService.listCategories();
+		Article enlace = articleService.getOne(id).get();
+
+		ModelAndView mv = new ModelAndView("enlace/editar");
+		mv.addObject("categories", categories);
+		mv.addObject("enlace", enlace);
+		return mv;
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
+	@PostMapping("actualizar")
+	public ModelAndView actualizar(@RequestParam long id, @RequestParam String title, @RequestParam String subtitle,
+			@RequestParam String link, @RequestParam Category category) {
+		if (!articleService.existsById(id)) {
+			return new ModelAndView("redirect:/enlace/lista");
+		}
+
+		ModelAndView mv = new ModelAndView();
+		Article enlace = articleService.getOne(id).get();
+		if (StringUtils.isBlank(title)) {
+			mv.setViewName("enlace/editar");
+			mv.addObject("enlace", enlace);
+			mv.addObject("error", "el título no puede estar vacío");
+			return mv;
+		}
+
+		if (articleService.existsByTitulo(title) && articleService.getByTitle(title).get().getId() != id) {
+			mv.setViewName("enlace/editar");
+			mv.addObject("error", "ese título ya existe");
+			mv.addObject("enlace", enlace);
+			return mv;
+		}
+
+		enlace.setTitle(title);
+		enlace.setSubtitle(subtitle);
+		enlace.setLink(link);
+		enlace.setCategory(category);
+		articleService.save(enlace);
+		return new ModelAndView("redirect:/enlace/lista");
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
+	@GetMapping("/borrar/{id}")
+	public ModelAndView borrar(@PathVariable("id") long id) {
+		if (articleService.existsById(id)) {
+			articleService.delete(id);
+			return new ModelAndView("redirect:/enlace/lista");
+		}
+		return null;
+	}
 }
