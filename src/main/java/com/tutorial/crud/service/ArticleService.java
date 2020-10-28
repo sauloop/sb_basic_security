@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tutorial.crud.entity.Article;
+import com.tutorial.crud.entity.Producto;
 import com.tutorial.crud.repository.IArticleRepository;
 
 @Service
@@ -31,16 +32,24 @@ public class ArticleService {
 
 	}
 
-	public Optional<Article> findArticleById(long id) {
+	public Optional<Article> getOne(long id) {
 		return articleRepository.findById(id);
 	}
 
-	public void deleteArticle(long id) {
+	public void delete(long id) {
 		articleRepository.deleteById(id);
+	}
+
+	public boolean existsById(int id) {
+		return articleRepository.existsById(id);
 	}
 
 	public boolean existsByTitulo(String title) {
 		return articleRepository.existsByTitle(title);
+	}
+
+	public Optional<Article> getByTitle(String title) {
+		return articleRepository.findByTitle(title);
 	}
 
 }

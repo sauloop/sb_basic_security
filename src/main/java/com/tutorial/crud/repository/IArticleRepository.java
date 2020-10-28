@@ -1,6 +1,7 @@
 package com.tutorial.crud.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,6 +13,10 @@ import com.tutorial.crud.entity.Article;
 public interface IArticleRepository extends JpaRepository<Article, Long> {
 	public List<Article> findAllByOrderByIdDesc();
 
+	boolean existsById(int id);
+
 	boolean existsByTitle(String title);
+
+	Optional<Article> findByTitle(String title);
 
 }

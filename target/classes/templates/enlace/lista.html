@@ -16,10 +16,10 @@
 					<th scope="col">Título</th>
 					<th scope="col">Subtítulo</th>
 					<th scope="col">Ir</th>
-					<!-- 					<th scope="col" -->
-					<!-- 						sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">Editar</th> -->
-					<!-- 					<th scope="col" -->
-					<!-- 						sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">Eliminar</th> -->
+					<th scope="col"
+						sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">Editar</th>
+					<th scope="col"
+						sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,16 +28,16 @@
 					<td th:text="${enlace.subtitle}"></td>
 					<td><a class="word-break" th:href="@{${enlace.link}}"
 						th:text="${enlace.link}" /></a></td>
-					<!-- 					<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a -->
-					<!-- 						th:href="@{'/producto/editar/' + ${producto.id}}"><button -->
-					<!-- 								class="btn btn-outline-warning"> -->
-					<!-- 								<i class="far fa-edit"></i> -->
-					<!-- 							</button></a></td> -->
-					<!-- 					<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a -->
-					<!-- 						th:href="@{'/producto/borrar/' + ${producto.id}}"><button -->
-					<!-- 								class="btn btn-outline-danger"> -->
-					<!-- 								<i class="far fa-trash-alt"></i> -->
-					<!-- 							</button></a></td> -->
+					<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a
+						th:href="@{'/enlace/editar/' + ${enlace.id}}"><button
+								class="btn btn-outline-warning">
+								<i class="far fa-edit"></i>
+							</button></a></td>
+					<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a
+						th:href="@{'/enlace/borrar/' + ${enlace.id}}"><button
+								class="btn btn-outline-danger">
+								<i class="far fa-trash-alt"></i>
+							</button></a></td>
 				</tr>
 
 			</tbody>

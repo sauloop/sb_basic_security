@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tutorial.crud.entity.Article;
 import com.tutorial.crud.entity.Category;
+import com.tutorial.crud.entity.Producto;
 import com.tutorial.crud.service.ArticleService;
 import com.tutorial.crud.service.CategoryService;
 
@@ -75,6 +76,59 @@ public class EnlaceController {
 		articleService.save(enlace);
 		mv.setViewName("redirect:/enlace/lista");
 		return mv;
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
+	@GetMapping("/editar/{id}")
+	public ModelAndView editar(@PathVariable("id") int id) {
+		if (!articleService.existsById(id)) {
+			return new ModelAndView("redirect:/enlace/lista");
+		}
+
+		Article enlace = articleService.getOne(id).get();
+		ModelAndView mv = new ModelAndView("enlace/editar");
+		mv.addObject("enlace", enlace);
+		return mv;
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
+	@PostMapping("actualizar")
+	public ModelAndView actualizar(@RequestParam int id, @RequestParam String title, @RequestParam String subtitle,
+			@RequestParam String link) {
+		if (!articleService.existsById(id)) {
+			return new ModelAndView("redirect:/enlace/lista");
+		}
+
+		ModelAndView mv = new ModelAndView();
+		Article enlace = articleService.getOne(id).get();
+		if (StringUtils.isBlank(title)) {
+			mv.setViewName("enlace/editar");
+			mv.addObject("enlace", enlace);
+			mv.addObject("error", "el título no puede estar vacío");
+			return mv;
+		}
+
+		if (articleService.existsByTitulo(title) && articleService.getByTitle(title).get().getId() != id) {
+			mv.setViewName("enlace/editar");
+			mv.addObject("error", "ese título ya existe");
+			mv.addObject("enlace", enlace);
+			return mv;
+		}
+
+		enlace.setTitle(title);
+		enlace.setSubtitle(subtitle);
+		enlace.setLink(link);
+		return new ModelAndView("redirect:/enlace/lista");
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
+	@GetMapping("/borrar/{id}")
+	public ModelAndView borrar(@PathVariable("id") int id) {
+		if (articleService.existsById(id)) {
+			articleService.delete(id);
+			return new ModelAndView("redirect:/enlace/lista");
+		}
+		return null;
 	}
 
 //	@GetMapping("/formsearch")
