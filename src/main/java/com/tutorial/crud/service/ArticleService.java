@@ -40,7 +40,7 @@ public class ArticleService {
 		articleRepository.deleteById(id);
 	}
 
-	public boolean existsById(int id) {
+	public boolean existsById(long id) {
 		return articleRepository.existsById(id);
 	}
 

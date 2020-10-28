@@ -13,7 +13,7 @@ import com.tutorial.crud.entity.Article;
 public interface IArticleRepository extends JpaRepository<Article, Long> {
 	public List<Article> findAllByOrderByIdDesc();
 
-	boolean existsById(int id);
+	boolean existsById(long id);
 
 	boolean existsByTitle(String title);
 

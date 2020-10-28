@@ -123,7 +123,7 @@ public class EnlaceController {
 
 	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
 	@GetMapping("/borrar/{id}")
-	public ModelAndView borrar(@PathVariable("id") int id) {
+	public ModelAndView borrar(@PathVariable("id") long id) {
 		if (articleService.existsById(id)) {
 			articleService.delete(id);
 			return new ModelAndView("redirect:/enlace/lista");
