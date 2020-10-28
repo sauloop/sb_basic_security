@@ -1,26 +1,28 @@
 package com.tutorial.crud.service;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.tutorial.crud.entity.Category;
 import com.tutorial.crud.repository.ICategoryRepository;
 
 @Service
+@Transactional
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class CategoryService {
 
 	@Autowired
 	private ICategoryRepository categoryRepository;
 
-	public Iterable<Category> listCategories() {
-
-		return categoryRepository.findAll();
-	}
-
-	public Page<Category> listCategories(Pageable categoryPageable) {
-		return categoryRepository.findAllByOrderByIdDesc(categoryPageable);
+	public List<Category> listCategories() {
+		return categoryRepository.findAllByOrderByIdDesc();
 	}
 
 	public void addCategory(Category category) {
