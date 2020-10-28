@@ -11,7 +11,9 @@ import com.tutorial.crud.entity.Category;
 @Repository
 public interface ICategoryRepository extends JpaRepository<Category, Long> {
 
-	List<Category> findAllByOrderByIdDesc();
+//	List<Category> findAllByOrderByIdDesc();
+	
+	List<Category> findAllByOrderByNameAsc();
 
 	Category findByName(String name);
 }

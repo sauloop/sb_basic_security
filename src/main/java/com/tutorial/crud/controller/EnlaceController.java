@@ -47,35 +47,35 @@ public class EnlaceController {
 		return "enlace/lista";
 	}
 
-//	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
-//	@GetMapping("/nuevo")
-//	public String nuevo(Model model) {
-//		List<Category> categories = categoryService.listCategories();
-//		model.addAttribute("categories", categories);
-//		return "enlace/nuevo";
-//	}
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
+	@GetMapping("/nuevo")
+	public String nuevo(Model model) {
+		List<Category> categories = categoryService.listCategories();
+		model.addAttribute("categories", categories);
+		return "enlace/nuevo";
+	}
 
-//	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
-//	@PostMapping("/guardar")
-//	public ModelAndView crear(@RequestParam Category category, @RequestParam String title,
-//			@RequestParam String subtitle, String link) {
-//		ModelAndView mv = new ModelAndView();
-//		if (StringUtils.isBlank(title)) {
-//			mv.setViewName("enlace/nuevo");
-//			mv.addObject("error", "el título no puede estar vacío");
-//			return mv;
-//		}
-//
-//		if (articleService.existsByTitulo(title)) {
-//			mv.setViewName("enlace/nuevo");
-//			mv.addObject("error", "ese enlace ya existe");
-//			return mv;
-//		}
-//		Article enlace = new Article(title, subtitle, link, category);
-//		articleService.save(enlace);
-//		mv.setViewName("redirect:/enlace/lista");
-//		return mv;
-//	}
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
+	@PostMapping("/guardar")
+	public ModelAndView crear(@RequestParam Category category, @RequestParam String title,
+			@RequestParam String subtitle, String link) {
+		ModelAndView mv = new ModelAndView();
+		if (StringUtils.isBlank(title)) {
+			mv.setViewName("enlace/nuevo");
+			mv.addObject("error", "el título no puede estar vacío");
+			return mv;
+		}
+
+		if (articleService.existsByTitulo(title)) {
+			mv.setViewName("enlace/nuevo");
+			mv.addObject("error", "ese enlace ya existe");
+			return mv;
+		}
+		Article enlace = new Article(title, subtitle, link, category);
+		articleService.save(enlace);
+		mv.setViewName("redirect:/enlace/lista");
+		return mv;
+	}
 
 //	@GetMapping("/formsearch")
 //	public String formSearch(Model model) {

@@ -11,7 +11,7 @@ import com.tutorial.crud.entity.Article;
 @Repository
 public interface IArticleRepository extends JpaRepository<Article, Long> {
 	public List<Article> findAllByOrderByIdDesc();
-	
-	boolean existsByTitulo(String title);
+
+	boolean existsByTitle(String title);
 
 }

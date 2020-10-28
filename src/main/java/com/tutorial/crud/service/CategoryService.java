@@ -22,7 +22,7 @@ public class CategoryService {
 	private ICategoryRepository categoryRepository;
 
 	public List<Category> listCategories() {
-		return categoryRepository.findAllByOrderByIdDesc();
+		return categoryRepository.findAllByOrderByNameAsc();
 	}
 
 	public void addCategory(Category category) {

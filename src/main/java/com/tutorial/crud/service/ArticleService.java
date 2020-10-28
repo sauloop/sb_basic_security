@@ -40,7 +40,7 @@ public class ArticleService {
 	}
 
 	public boolean existsByTitulo(String title) {
-		return articleRepository.existsByTitulo(title);
+		return articleRepository.existsByTitle(title);
 	}
 
 }
