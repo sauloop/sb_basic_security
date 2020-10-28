@@ -35,8 +35,8 @@ public class Article implements Serializable, Comparable<Article> {
 	@Size(min = 0, max = 255)
 	private String link;
 
-	@Size(min = 0, max = 500)
-	private String text;
+//	@Size(min = 0, max = 500)
+//	private String text;
 
 	@ManyToOne
 	private Category category;
@@ -45,13 +45,21 @@ public class Article implements Serializable, Comparable<Article> {
 	}
 
 	public Article(Long id, @NotEmpty @Size(min = 2, max = 255) String title, @Size(min = 0, max = 255) String subtitle,
-			@Size(min = 0, max = 255) String link, @Size(min = 0, max = 500) String text, Category category) {
+			@Size(min = 0, max = 255) String link, Category category) {
 
 		this.id = id;
 		this.title = title;
 		this.subtitle = subtitle;
 		this.link = link;
-		this.text = text;
+		this.category = category;
+	}
+
+	public Article(@NotEmpty @Size(min = 2, max = 255) String title, @Size(min = 0, max = 255) String subtitle,
+			@Size(min = 0, max = 255) String link, Category category) {
+
+		this.title = title;
+		this.subtitle = subtitle;
+		this.link = link;
 		this.category = category;
 	}
 
@@ -85,14 +93,6 @@ public class Article implements Serializable, Comparable<Article> {
 
 	public void setLink(String link) {
 		this.link = link;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
 	}
 
 	public Category getCategory() {

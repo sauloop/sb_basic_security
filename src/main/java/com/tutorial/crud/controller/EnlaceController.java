@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.tutorial.crud.entity.Article;
 import com.tutorial.crud.entity.Category;
@@ -27,13 +30,13 @@ import com.tutorial.crud.service.CategoryService;
 
 @Controller
 @RequestMapping("/enlace")
-public class ArticleController {
+public class EnlaceController {
 
 	@Autowired
 	private ArticleService articleService;
 
-//	@Autowired
-//	private CategoryService categoryService;
+	@Autowired
+	private CategoryService categoryService;
 
 	@GetMapping("/lista")
 	public String listArticles(Model model) {
@@ -42,6 +45,36 @@ public class ArticleController {
 		model.addAttribute("enlaces", enlaces);
 
 		return "enlace/lista";
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
+	@GetMapping("/nuevo")
+	public String nuevo(Model model) {
+		List<Category> categories = categoryService.listCategories();
+		model.addAttribute("categories", categories);
+		return "enlace/nuevo";
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
+	@PostMapping("/guardar")
+	public ModelAndView crear(@RequestParam Category category, @RequestParam String title,
+			@RequestParam String subtitle, String link) {
+		ModelAndView mv = new ModelAndView();
+		if (StringUtils.isBlank(title)) {
+			mv.setViewName("enlace/nuevo");
+			mv.addObject("error", "el título no puede estar vacío");
+			return mv;
+		}
+
+		if (articleService.existsByTitulo(title)) {
+			mv.setViewName("enlace/nuevo");
+			mv.addObject("error", "ese enlace ya existe");
+			return mv;
+		}
+		Article enlace = new Article(title, subtitle, link, category);
+		articleService.save(enlace);
+		mv.setViewName("redirect:/enlace/lista");
+		return mv;
 	}
 
 //	@GetMapping("/formsearch")
