@@ -36,23 +36,6 @@ public class UsuarioController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-//	@GetMapping("/testeditar")
-//	public String testeditar(Model model) {
-//
-//		Usuario usuario = usuarioService.getById(3).get();
-//		model.addAttribute("usuario", usuario);
-//		model.addAttribute("noEditor", true);
-//		return "testeditar";
-//	}
-//
-//	@PostMapping("/testactualizar")
-//	public String testactualizar(@RequestParam String rol, Model model) {
-//
-//		model.addAttribute("rol", rol);
-//
-//		return "testactualizar";
-//	}
-
 	@GetMapping("/registro")
 	public String registro() {
 		return "registro";
