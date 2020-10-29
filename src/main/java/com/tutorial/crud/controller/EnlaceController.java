@@ -135,4 +135,31 @@ public class EnlaceController {
 		}
 		return null;
 	}
+
+	@GetMapping("/buscar")
+	public String buscar(Model model) {
+		model.addAttribute("category", new Category());
+		model.addAttribute("categories", categoryService.listCategories());
+
+		return "enlace/buscar";
+	}
+
+	@GetMapping("/buscador")
+	public String buscador(@RequestParam String name, Model model, @ModelAttribute("category") Category category) {
+
+		if (name == "") {
+
+			return "redirect:/enlace/buscar";
+
+		} else {
+			Category cat = categoryService.findCategoryByName(name);
+			List<Article> enlaces = cat.getArticles();
+			Collections.sort(enlaces);
+
+			model.addAttribute("categories", categoryService.listCategories());
+			model.addAttribute("enlaces", enlaces);
+
+			return "enlace/buscar";
+		}
+	}
 }
