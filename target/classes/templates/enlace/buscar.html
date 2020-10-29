@@ -26,7 +26,13 @@
 				<button type="submit" class="btn btn-primary">Buscar</button>
 			</form>
 		</div>
-		<br /> <br />
+		<div class="mb-4">
+			<a th:href="@{/enlace/lista}" style="text-decoration: none;"><button
+					class="btn btn-outline-info btn-block">
+					<i class="fas fa-arrow-circle-left"></i> Volver
+				</button></a>
+		</div>
+
 		<div th:if="${enlaces}" class="mt-4 mb-4">
 			<div>
 				<table class="table table-dark text-center">
@@ -63,12 +69,12 @@
 				</table>
 			</div>
 
-			<div class="mt-4 mb-4">
-				<a th:href="@{/enlace/lista}" style="text-decoration: none;"><button
-						class="btn btn-outline-info btn-block">
-						<i class="fas fa-arrow-circle-left"></i> Volver
-					</button></a>
-			</div>
+			<!-- 			<div class="mt-4 mb-4"> -->
+			<!-- 				<a th:href="@{/enlace/lista}" style="text-decoration: none;"><button -->
+			<!-- 						class="btn btn-outline-info btn-block"> -->
+			<!-- 						<i class="fas fa-arrow-circle-left"></i> Volver -->
+			<!-- 					</button></a> -->
+			<!-- 			</div> -->
 		</div>
 	</div>
 
