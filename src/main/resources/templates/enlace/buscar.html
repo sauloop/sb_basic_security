@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: headerfiles">
+</head>
+<body>
+	<header th:insert="fragments :: nav"></header>
+
+	<div class="container">
+		<div class="mt-4 mb-4 text-center">
+			<h2>Buscar enlaces</h2>
+		</div>
+		<br /> <br />
+		<div class="mt-4 mb-4">
+			<form action="#" th:action="@{/enlace/buscador}"
+				th:object="${category}" method="get">
+
+				<label for="name"><strong>Categoría</strong></label>&nbsp;&nbsp;<select
+					class="browser-default custom-select col-md-4" name="name"
+					th:field="*{name}" id="name">
+					<option value="" selected></option>
+					<option th:each="cat:${categories}" th:value="${cat.name}"
+						th:text="${cat.name}"></option>
+				</select>&nbsp;&nbsp;
+
+				<button type="submit" class="btn btn-primary">Buscar</button>
+			</form>
+		</div>
+		<br /> <br />
+		<div th:if="${enlaces}" class="mt-4 mb-4">
+			<div>
+				<table class="table table-dark text-center">
+					<thead>
+						<tr>
+							<th scope="col">Título</th>
+							<th scope="col">Subtítulo</th>
+							<th scope="col">Ir</th>
+							<th scope="col"
+								sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">Editar</th>
+							<th scope="col"
+								sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="enlace : ${enlaces}">
+							<td th:text="${enlace.title}"></td>
+							<td th:text="${enlace.subtitle}"></td>
+							<td><a class="word-break" th:href="@{${enlace.link}}"
+								th:text="${enlace.link}" /></a></td>
+							<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a
+								th:href="@{'/enlace/editar/' + ${enlace.id}}"><button
+										class="btn btn-outline-warning">
+										<i class="far fa-edit"></i>
+									</button></a></td>
+							<td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')"><a
+								th:href="@{'/enlace/borrar/' + ${enlace.id}}"><button
+										class="btn btn-outline-danger">
+										<i class="far fa-trash-alt"></i>
+									</button></a></td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+			<div class="mt-4 mb-4">
+				<a th:href="@{/enlace/lista}" style="text-decoration: none;"><button
+						class="btn btn-outline-info btn-block">
+						<i class="fas fa-arrow-circle-left"></i> Volver
+					</button></a>
+			</div>
+		</div>
+	</div>
+
+	<footer th:insert="fragments :: footer"></footer>
+	<div th:insert="fragments :: scripts"></div>
+</body>
+</html>
