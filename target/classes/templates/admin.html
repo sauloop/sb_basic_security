@@ -30,6 +30,12 @@
 
 				<div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">
 					<div class="mt-4 mb-4">
+						<a th:href="@{/categoria/lista}">Categorías</a>
+					</div>
+				</div>
+
+				<div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EDITOR')">
+					<div class="mt-4 mb-4">
 						<a th:href="@{/enlace/lista}">Enlaces</a>
 					</div>
 				</div>

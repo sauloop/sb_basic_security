@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tutorial.crud.entity.Article;
 import com.tutorial.crud.entity.Category;
 import com.tutorial.crud.repository.ICategoryRepository;
 
@@ -25,23 +26,35 @@ public class CategoryService {
 		return categoryRepository.findAllByOrderByNameAsc();
 	}
 
-	public void addCategory(Category category) {
+	public void save(Category category) {
 		categoryRepository.save(category);
 
 	}
 
-	public Optional<Category> findCategoryById(long id) {
+	public Optional<Category> getOne(long id) {
 
 		return categoryRepository.findById(id);
 	}
 
-	public void deleteCategory(long id) {
+	public void delete(long id) {
 		categoryRepository.deleteById(id);
 	}
 
-	public Category findCategoryByName(String name) {
+//	public Category findCategoryByName(String name) {
+//
+//		return categoryRepository.findByName(name);
+//	}
 
+	public Optional<Category> getByName(String name) {
 		return categoryRepository.findByName(name);
+	}
+
+	public boolean existsById(long id) {
+		return categoryRepository.existsById(id);
+	}
+
+	public boolean existsByName(String name) {
+		return categoryRepository.existsByName(name);
 	}
 
 }
