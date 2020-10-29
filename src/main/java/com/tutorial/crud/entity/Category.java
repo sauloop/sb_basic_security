@@ -2,6 +2,8 @@ package com.tutorial.crud.entity;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +25,7 @@ public class Category implements Serializable {
 	@Size(min = 2, max = 50)
 	private String name;
 
-	@OneToMany(mappedBy = "category")
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	private List<Article> articles;
 
 	public Category() {
@@ -34,6 +36,11 @@ public class Category implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.articles = articles;
+	}
+
+	public Category(@NotEmpty @Size(min = 2, max = 50) String name) {
+
+		this.name = name;
 	}
 
 	public Long getId() {

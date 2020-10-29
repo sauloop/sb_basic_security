@@ -2,6 +2,8 @@ package com.tutorial.crud.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,7 +40,7 @@ public class Article implements Serializable, Comparable<Article> {
 //	@Size(min = 0, max = 500)
 //	private String text;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Category category;
 
 	public Article() {

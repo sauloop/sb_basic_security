@@ -152,7 +152,8 @@ public class EnlaceController {
 			return "redirect:/enlace/buscar";
 
 		} else {
-			Category cat = categoryService.findCategoryByName(name);
+//			Category cat = categoryService.findCategoryByName(name);
+			Category cat = categoryService.getByName(name).get();
 			List<Article> enlaces = cat.getArticles();
 			Collections.sort(enlaces);
 
