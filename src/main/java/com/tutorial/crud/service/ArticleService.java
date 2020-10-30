@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tutorial.crud.entity.Article;
-import com.tutorial.crud.entity.Producto;
 import com.tutorial.crud.repository.IArticleRepository;
 
 @Service

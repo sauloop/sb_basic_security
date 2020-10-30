@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+//import javax.validation.constraints.Size;
 
 @Entity
 public class Category implements Serializable {

@@ -1,16 +1,16 @@
 package com.tutorial.crud.config;
 
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.tutorial.crud.entity.Rol;
-import com.tutorial.crud.entity.Usuario;
-import com.tutorial.crud.enums.RolNombre;
+//import com.tutorial.crud.entity.Rol;
+//import com.tutorial.crud.entity.Usuario;
+//import com.tutorial.crud.enums.RolNombre;
 import com.tutorial.crud.service.RolService;
 import com.tutorial.crud.service.UsuarioService;
 

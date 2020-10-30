@@ -1,7 +1,7 @@
 package com.tutorial.crud.config;
 
-import com.tutorial.crud.entity.Rol;
-import com.tutorial.crud.enums.RolNombre;
+//import com.tutorial.crud.entity.Rol;
+//import com.tutorial.crud.enums.RolNombre;
 import com.tutorial.crud.service.RolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

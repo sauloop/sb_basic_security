@@ -1,19 +1,19 @@
 package com.tutorial.crud.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+//import java.util.Date;
 
-import javax.persistence.CascadeType;
+//import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+//import javax.persistence.Temporal;
+//import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import org.springframework.format.annotation.DateTimeFormat;
+//import javax.validation.constraints.Size;
+//import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Article implements Serializable, Comparable<Article> {
