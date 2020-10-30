@@ -24,30 +24,26 @@ public class Article implements Serializable, Comparable<Article> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty
-	@Size(min = 2, max = 255)
 	private String title;
 
 //	@Temporal(TemporalType.DATE)
 //	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 //	private Date day;
 
-	@Size(min = 0, max = 255)
 	private String subtitle;
 
-	@Size(min = 0, max = 255)
+	@NotEmpty
 	private String link;
 
-//	@Size(min = 0, max = 500)
 //	private String text;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Category category;
 
 	public Article() {
 	}
 
-	public Article(Long id, @NotEmpty @Size(min = 2, max = 255) String title, @Size(min = 0, max = 255) String subtitle,
-			@Size(min = 0, max = 255) String link, Category category) {
+	public Article(Long id, String title, String subtitle, String link, Category category) {
 
 		this.id = id;
 		this.title = title;
@@ -56,8 +52,7 @@ public class Article implements Serializable, Comparable<Article> {
 		this.category = category;
 	}
 
-	public Article(@NotEmpty @Size(min = 2, max = 255) String title, @Size(min = 0, max = 255) String subtitle,
-			@Size(min = 0, max = 255) String link, Category category) {
+	public Article(String title, String subtitle, String link, Category category) {
 
 		this.title = title;
 		this.subtitle = subtitle;

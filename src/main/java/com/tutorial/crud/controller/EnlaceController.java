@@ -1,5 +1,6 @@
 package com.tutorial.crud.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -140,6 +141,7 @@ public class EnlaceController {
 	public String buscar(Model model) {
 		model.addAttribute("category", new Category());
 		model.addAttribute("categories", categoryService.listCategories());
+		model.addAttribute("enlaces", new ArrayList<>());
 
 		return "enlace/buscar";
 	}

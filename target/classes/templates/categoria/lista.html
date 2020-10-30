@@ -56,10 +56,14 @@
 							<i class="fas fa-arrow-circle-left"></i> Volver
 						</button></a>
 				</div>
-				<footer th:insert="fragments :: footer"></footer>
-				<div th:insert="fragments :: scripts"></div>
 			</div>
 		</div>
+	</div>
+	<br />
+	<br />
+	<div th:classappend="${categories.size()<3} ? fixed-bottom : mt-4">
+		<footer th:insert="fragments :: footer"></footer>
+		<div th:insert="fragments :: scripts"></div>
 	</div>
 </body>
 </html>

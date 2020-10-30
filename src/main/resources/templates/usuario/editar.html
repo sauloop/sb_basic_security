@@ -12,6 +12,7 @@
 				<div class="mt-4 mb-4">
 					<h5>Editar usuario</h5>
 				</div>
+				<br />
 				<div>
 					<form th:action="@{/usuario/actualizar}" method="post">
 						<input type="hidden" name="id" id="id" th:value="${usuario.id}">
@@ -56,10 +57,12 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<footer th:insert="fragments :: footer"></footer>
-				<div th:insert="fragments :: scripts"></div>
 			</div>
 		</div>
+	</div>
+	<div class="fixed-bottom">
+		<footer th:insert="fragments :: footer"></footer>
+		<div th:insert="fragments :: scripts"></div>
 	</div>
 </body>
 </html>

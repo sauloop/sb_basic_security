@@ -12,9 +12,7 @@
 				<div class="mt-4 mb-4">
 					<h5>Editar enlace</h5>
 				</div>
-
 				<br />
-
 				<div>
 					<form th:action="@{/enlace/actualizar}" th:object="${enlace}"
 						method="post">
@@ -77,7 +75,9 @@
 		</div>
 	</div>
 
-	<footer th:insert="fragments :: footer"></footer>
-	<div th:insert="fragments :: scripts"></div>
+	<div class="fixed-bottom">
+		<footer th:insert="fragments :: footer"></footer>
+		<div th:insert="fragments :: scripts"></div>
+	</div>
 </body>
 </html>

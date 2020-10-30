@@ -22,7 +22,6 @@ public class Category implements Serializable {
 	private Long id;
 
 	@NotEmpty
-	@Size(min = 2, max = 50)
 	private String name;
 
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
@@ -31,14 +30,14 @@ public class Category implements Serializable {
 	public Category() {
 	}
 
-	public Category(Long id, @NotEmpty @Size(min = 2, max = 50) String name, List<Article> articles) {
+	public Category(Long id, @NotEmpty String name, List<Article> articles) {
 
 		this.id = id;
 		this.name = name;
 		this.articles = articles;
 	}
 
-	public Category(@NotEmpty @Size(min = 2, max = 50) String name) {
+	public Category(@NotEmpty String name) {
 
 		this.name = name;
 	}

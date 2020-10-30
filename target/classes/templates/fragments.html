@@ -54,7 +54,7 @@
 								class="far fa-list-alt"></i> Lista
 							</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" th:href="@{/producto/nuevo}"> <i
+							<a class="dropdown-item" th:href="@{/enlace/nuevo}"> <i
 								class="fas fa-plus-circle"></i> Nuevo enlace
 							</a>
 						</div></li>
@@ -78,7 +78,8 @@
 	</div>
 
 	<footer th:fragment="footer"
-		class="footer mt-auto py-3 text-center dark bg-dark fixed-bottom">
+		class="footer mt-auto py-3 text-center dark bg-dark"
+		style="margin-bottom: 0">
 		<div class="container">
 			<span class="text-muted">&copy; prueba</span>
 		</div>
